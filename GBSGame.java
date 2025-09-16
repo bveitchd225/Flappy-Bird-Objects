@@ -17,6 +17,7 @@ public class GBSGame extends JPanel implements Runnable, KeyListener {
     private int HEIGHT;
 
     private static ArrayList<String> keys = new ArrayList<>();
+    private static ArrayList<String> keyEvents = new ArrayList<>();
     
     public void setResolution(int w, int h) {
         WIDTH = w;
@@ -93,6 +94,17 @@ public class GBSGame extends JPanel implements Runnable, KeyListener {
         return keys.contains(key);
     }
 
+    public static boolean keyPressed(String key) {
+        if (key.equals("space")) {
+            key = " ";
+        }
+        boolean keyPressedBool = keyEvents.contains(key);
+        while (keyEvents.contains(key)) {
+            keyEvents.remove(key);
+        }
+        return keyPressedBool;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
        
@@ -100,7 +112,11 @@ public class GBSGame extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (!keys.contains(e.getKeyChar() + "")) {
+            keyEvents.add(e.getKeyChar() + "");
+        }
         keys.add(e.getKeyChar() + "");
+        
     }
 
     @Override
@@ -108,6 +124,9 @@ public class GBSGame extends JPanel implements Runnable, KeyListener {
         String key = e.getKeyChar() + "";
         while (keys.contains(key)) {
             keys.remove(key);
+        }
+        while (keyEvents.contains(key)) {
+            keyEvents.remove(key);
         }
     }
 }
