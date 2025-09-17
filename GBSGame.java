@@ -87,6 +87,12 @@ public class GBSGame extends JPanel implements Runnable, KeyListener {
         draw(g);
     }
 
+    public Image getImage(String filePath) {
+        return javax.swing.ImageIcon.class.getResource(filePath) != null
+            ? new javax.swing.ImageIcon(getClass().getResource(filePath)).getImage()
+            : new javax.swing.ImageIcon(filePath).getImage();
+    }
+
     public static boolean keyDown(String key) {
         if (key.equals("space")) {
             key = " ";
